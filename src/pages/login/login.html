@@ -1,0 +1,47 @@
+<ion-content >
+
+
+  <ion-card  style="margin-top: 20%" >
+    <ion-card-header style="text-align: center;color: white;">
+      <ion-row>
+        <img src="./assets/imgs/new_logo.png" style="height: 120px"  >
+
+      </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Add card content here! -->
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+        <ion-row>
+          <ion-col>
+
+            <ion-item>
+              <ion-label color="primary" stacked>Usuario</ion-label>
+              <ion-input type="text"  formControlName="username" placeholder="Usuario"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Clave</ion-label>
+              <ion-input type="password" formControlName="password" placeholder="Clave"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12><button type="submit"  outline ion-button   color="default" class="btn-karcher">Entrar</button>
+          </ion-col >
+        </ion-row>
+      </form>
+
+      <ion-row *ngIf="msgerror">
+        <ion-col>
+          <ion-label>{{ msgerror}}</ion-label>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
