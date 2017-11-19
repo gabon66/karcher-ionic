@@ -17,4 +17,11 @@ export class OrderService {
     let url = environment.api.baseUrlApi+"movil/order/new";
     return this.http.get(url).map((response: Response) => response.json());
   }
+
+  getMaterialByBarra(number ,barra){
+    let url = environment.api.baseUrlApi+"movil/material/pn/"+number+"/"+barra;
+    return this.http.get(url).map((response: Response) => response.json());
+  }
+
+
 }

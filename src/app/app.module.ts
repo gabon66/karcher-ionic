@@ -16,6 +16,8 @@ import {AuthenticationService} from "../util/services/login.service";
 import {MenuPage} from "../pages/menu/menu";
 import {LoginPage} from "../pages/login/login";
 import {HttpModule} from "@angular/http";
+import {BarcodeScanner} from "@ionic-native/barcode-scanner";
+import {ModalClientPage} from "../pages/modal-client/modal-client";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {HttpModule} from "@angular/http";
     HomePage,
     LoginPage,
     MenuPage,
-    ListPage
+    ListPage,
+    ModalClientPage
   ],
   imports: [
     BrowserModule,
@@ -36,11 +39,13 @@ import {HttpModule} from "@angular/http";
     HomePage,
     LoginPage,
     MenuPage,
-    ListPage
+    ListPage,
+    ModalClientPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpService,
     OrderService,

@@ -12,7 +12,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 
     <ion-card>
-      <ion-card-content>
+      <ion-card-content [hidden]="step!=1">
         <ion-row>
           <ion-col>
 
@@ -56,11 +56,122 @@
             </ion-item>
           </ion-col>
         </ion-row>
-
-
       </ion-card-content>
+
+      <ion-card-content [hidden]="step!=2">
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+                <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="checkBarraCode()" >Escanear</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Codigo de Barra:</ion-label>
+              <ion-input type="text"  formControlName="barra"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Numero de Parte:</ion-label>
+              <ion-input type="text"  formControlName="n_parte"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Modelo:</ion-label>
+              <ion-input type="text" formControlName="modelo"   placeholder=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Numero de Serie:</ion-label>
+              <ion-input type="text" formControlName="serie"  placeholder=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+      <ion-card-content [hidden]="step!=3">
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="checkBarraCode()" >Buscar Cliente</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Cliente:</ion-label>
+              <ion-input type="text"  formControlName="cliente"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Contacto:</ion-label>
+              <ion-input type="text"  formControlName="contacto"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>Telefono:</ion-label>
+              <ion-input type="text" formControlName="telefono"   placeholder=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" stacked>E-Mail:</ion-label>
+              <ion-input type="text" formControlName="email"  placeholder=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+
+
     </ion-card>
   </form>
 
   <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+
+
+
+  <ion-footer style="text-align: center" >
+    <ion-row >
+      <ion-col col-6>
+        <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="back()" >Atras</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button  class="btn-karcher" [hidden]="step>4" style="width: 100%" type="button" (click)="next()"   outline >Siguiente</button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+
+
 </ion-content>
