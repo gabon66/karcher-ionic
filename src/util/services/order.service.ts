@@ -23,5 +23,23 @@ export class OrderService {
     return this.http.get(url).map((response: Response) => response.json());
   }
 
+  getClients(){
+    let url = environment.api.baseUrlApi+"movil/clientes";
+    return this.http.get(url).map((response: Response) => response.json());
+  }
+
+  saveOrder(dataPost:any){
+    let url = environment.api.baseUrlApi+"movil/order";
+    return this.http.post(url,dataPost)
+      .map((response: Response) => response.json())
+      .catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  getOrders(){
+    let url = environment.api.baseUrlApi+"movil/orders";
+    return this.http.get(url).map((response: Response) => response.json());
+  }
 
 }

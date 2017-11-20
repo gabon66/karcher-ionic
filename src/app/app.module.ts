@@ -18,6 +18,7 @@ import {LoginPage} from "../pages/login/login";
 import {HttpModule} from "@angular/http";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ModalClientPage} from "../pages/modal-client/modal-client";
+import {ClientFilterPipe} from "../util/pipes/client-filter.pipe";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {ModalClientPage} from "../pages/modal-client/modal-client";
     HomePage,
     LoginPage,
     MenuPage,
+    ClientFilterPipe,
     ListPage,
     ModalClientPage
   ],

@@ -7,12 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ModalClient</ion-title>
+    <ion-title>Clientes</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
+
+
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" stacked>Buscar:</ion-label>
+            <ion-input type="text" [(ngModel)]="search" ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-list inset>
+        <ion-card *ngFor="let client of clients | dataFilterClient : search" (click)="selectClient(client)">
+          <ion-card-header>
+            {{ client.name }}
+          </ion-card-header>
+          <ion-card-content>
+            {{ client.contacto}} - {{ client.phone}}
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+
+  <ion-footer style="text-align: center" >
+    <ion-row >
+      <ion-col col-12>
+        <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="back()" >Volver</button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+
 
 </ion-content>

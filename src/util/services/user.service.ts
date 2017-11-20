@@ -51,24 +51,7 @@ export class UserService {
     data.append('phone', dataPost.telefono1);
     data.append('mail', dataPost.mail);
 
-
     return this.http.put(url,data).map((response: Response) => response.json());
-    /*if (!empty($request->get("fist_name")))$user->setFirstName($request->get("fist_name"));
-    if (!empty($request->get("last_name")))$user->setLastName($request->get("last_name"));
-    if (!empty($request->get("dni")))      $user->setDni($request->get("dni"));
-    if (!empty($request->get("matricula")))$user->setMatricula($request->get("matricula"));
-    if (!empty($request->get("phone")))    $user->setPhone($request->get("phone"));
-    if (!empty($request->get("phone1")))   $user->setPhone2($request->get("phone1"));
-    if (!empty($request->get("rotemc")))   $user->setGroupRotem($request->get("rotemc"));
-    if (!empty($request->get("shift1")))   $user->setShift1($request->get("shift1"));
-    if (!empty($request->get("shift2")))   $user->setShift2($request->get("shift2"));
-    if (!empty($request->get("shift3")))   $user->setShift3($request->get("shift3"));
-    if (!empty($request->get("enabled")))  $user->setEnabled($request->get("enabled"));
-    if (!empty($request->get("enabled")))  $user->setWorkPlace($request->get("place"));
-    if (!empty($request->get("mail")))     $user->setEmail($request->get("mail"));
-    if (!empty($request->get("rol")))     $user->setRotemRoles($request->get("rol"));
-    */
-
   }
 
 

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import {NavController, AlertController} from 'ionic-angular';
+import {NavController, AlertController, ModalController} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
+import {ModalClientPage} from "../modal-client/modal-client";
+import {URLSearchParams} from "@angular/http";
 
 @Component({
   selector: 'page-home',
@@ -28,7 +30,12 @@ export class HomePage {
   client_id:any;
   orderUsersDist:any=[];
   ordertec:any;
-  constructor(public navCtrl: NavController,private barcodeScanner: BarcodeScanner,private alertController: AlertController,public orderService:OrderService,private fb:FormBuilder) {
+  constructor(public navCtrl: NavController,
+              public modalCtrl: ModalController,
+              private barcodeScanner: BarcodeScanner,
+              private alertController: AlertController,
+              public orderService:OrderService,
+              private fb:FormBuilder) {
     this.form = fb.group({
       'date': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'type_ord': [1],
@@ -55,9 +62,9 @@ export class HomePage {
       'acc7': [''],
       'acc8': [''],
 
-      'prior': [''],
-      'tecnico_assign': [''],
-      'state': [''],
+      'prior': [1],
+      'tecnico_assign': [1],
+      'state': [1],
       'obs': [''],
     });
 
@@ -130,15 +137,23 @@ export class HomePage {
         this.form.controls.telefono.setValue(data.cliente.phone);
         this.form.controls.email.setValue(data.cliente.mail);
         this.client_id=data.cliente.id
-        /*$scope.client_from_old_orden=response.data.cliente;
-        $scope.cliente_id=$scope.client_from_old_orden.id;
-        $scope.cliente=$scope.client_from_old_orden.name;
-        $scope.contacto=$scope.client_from_old_orden.contacto;
-        $scope.phone=$scope.client_from_old_orden.phone;
-        $scope.mail=$scope.client_from_old_orden.mail;
-        */
       }
 
+    })
+  }
+
+
+  findClient(){
+    let modal = this.modalCtrl.create(ModalClientPage);
+    modal.present();
+    modal.onDidDismiss(data=>{
+      if(data){
+        this.form.controls.cliente.setValue(data.name);
+        this.form.controls.contacto.setValue(data.contacto);
+        this.form.controls.telefono.setValue(data.phone);
+        this.form.controls.email.setValue(data.mail);
+        this.client_id=data.id
+      }
     })
   }
 
@@ -183,7 +198,7 @@ export class HomePage {
             //this.ordertype=this.orderType[4];
             this.orderUsersDist=[];
             this.orderUsersDist.push({"id":this.userId,
-              "name":this.form.controls.user_rec.getValue()})
+              "name":this.form.controls.user_rec.value})
             this.ordertec=this.orderUsersDist[0];
           }
 
@@ -205,54 +220,62 @@ export class HomePage {
         //this.nav.push(LoginPage);
         alert.present();
       }
+    })
+  }
+
+  onSubmit(formData){
+    console.log(formData);
+
+    let data = new URLSearchParams();
+
+    data.append('tipo', formData.type_ord);
+    data.append('numero', this.ordNumer);
+    data.append('dtr',  formData.distri);
+    data.append('distId', this.distId);
 
 
-      /*
-
-       if(orden.data.dist){
-       if (orden.data.dist.dir){
-       $scope.ordenValid=true;
-       $scope.countryName= orden.data.dist.dir.split(",")[orden.data.dist.dir.split(",").length-1].toUpperCase().trim();
+    data.append('cuno', formData.cliente);
+    data.append('eml', formData.email);
+    data.append('phn',  formData.telefono);
+    data.append('nme', formData.contacto);
 
 
-       $scope.newNumOrder=$scope.countryName.substring(0,2)+ ("0000"+orden.data.user.idDistribuidor).slice(-4)+("0000"+orden.data.next).slice(-4)
-       $scope.distName=orden.data.dist.name;
-       $scope.distId =orden.data.dist.id;
+    data.append('client_id', this.client_id);
+    data.append('tecnico', this.userId);
+    data.append('estado',  formData.state);
+    data.append('obs', formData.obs);
 
-       $scope.userName=orden.data.user.lastName + " "+orden.data.user.name;
-       $scope.userName_id=orden.data.user.id;
-       $scope.user_level=orden.data.user.level;
+    data.append('barra', formData.barra);
+    data.append('serial', formData.serie);
+    data.append('pn',  formData.n_parte);
+    data.append('modelo', formData.modelo);
+    data.append('maquina_id', this.maquina_id);
 
+    data.append('acc1', formData.acc1);
+    data.append('acc2', formData.acc2);
+    data.append('acc3', formData.acc3);
+    data.append('acc4', formData.acc4);
 
-       if (orden.data.usersDist){
-       for (var e = 0; e < orden.data.usersDist.length; e++) {
-       $scope.orderUsersDist.push({"id": orden.data.usersDist[e].id,
-       "name":orden.data.usersDist[e].lastName + " "+orden.data.usersDist[e].name})
-       }
-       }else {
-       $scope.orderUsersDist.push({"id": 1,
-       "name":"Autoasignar"})
-       }
+    data.append('acc5', formData.acc5);
+    data.append('acc6', formData.acc6);
+    data.append('acc7', formData.acc7);
+    data.append('acc8', formData.acc8);
 
-       if($scope.user_level==6){
-       $scope.ordertype=$scope.orderType[4];
-       $scope.orderUsersDist=[];
-       $scope.orderUsersDist.push({"id":$scope.userName_id,
-       "name":$scope.userName})
-       $scope.ordertec=$scope.orderUsersDist[0];
-       }
+    data.append('prd', formData.prior);
 
+    this.orderService.saveOrder(data).subscribe(data=>{
+      this.form.reset();
+      this.step=1;
+      this.getNewOrder();
+      let alert = this.alertController.create({
+        title: 'Orden',
+        subTitle: 'Se genero orden con éxito',
+        buttons: ['Aceptar']
+      });
+      alert.present();
 
-       }else {
-       $scope.ordenValid=false;
-       $scope.errorMsg="No tiene una dirección valida asiganada a su punto de distribución";
-       }
-       }else {
-       $scope.ordenValid=false;
-       $scope.errorMsg="No tiene punto de distribución asociado para cargar ordenes.";
-       }
-       */
-
+    },error=>{
+      console.log(error);
     })
   }
 
