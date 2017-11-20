@@ -3,11 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Control</ion-title>
+    <ion-title>Pendientes</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <ion-row>
     <ion-col>
       <ion-item>
@@ -22,8 +22,8 @@
         {{ order.numero }} - {{ order.fing }}
       </ion-card-header>
       <ion-card-content>
-       <ion-label>Cliente: {{order.nme}}</ion-label>
-       <ion-label *ngIf="order.estd==0">Estado: Pendiente</ion-label>
+        <ion-label>Cliente: {{order.nme}}</ion-label>
+        <ion-label *ngIf="order.estd==0">Estado: Pendiente</ion-label>
         <ion-label *ngIf="order.estd==1">Estado: Proceso</ion-label>
         <ion-label *ngIf="order.estd==2">Estado: Cerrada</ion-label>
 
@@ -31,6 +31,4 @@
 
     </ion-card>
   </ion-list>
-
-
 </ion-content>

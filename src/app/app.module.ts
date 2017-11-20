@@ -19,6 +19,12 @@ import {HttpModule} from "@angular/http";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ModalClientPage} from "../pages/modal-client/modal-client";
 import {ClientFilterPipe} from "../util/pipes/client-filter.pipe";
+import {OrderFilterPipe} from "../util/pipes/order-filter.pipe";
+import {OrderPendingPage} from "../pages/order-pending/order-pending";
+import {OrderProcessPage} from "../pages/order-process/order-process";
+import {OrderClosedPage} from "../pages/order-closed/order-closed";
+import {TabOrderPage} from "../pages/tab-order/tab-order";
+import {ModalOrderPage} from "../pages/modal-order/modal-order";
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import {ClientFilterPipe} from "../util/pipes/client-filter.pipe";
     LoginPage,
     MenuPage,
     ClientFilterPipe,
+    OrderFilterPipe,
     ListPage,
+    OrderPendingPage,
+    OrderProcessPage,
+    OrderClosedPage,
+    TabOrderPage,
+    ModalOrderPage,
     ModalClientPage
   ],
   imports: [
@@ -42,6 +54,11 @@ import {ClientFilterPipe} from "../util/pipes/client-filter.pipe";
     LoginPage,
     MenuPage,
     ListPage,
+    OrderPendingPage,
+    OrderProcessPage,
+    OrderClosedPage,
+    TabOrderPage,
+    ModalOrderPage,
     ModalClientPage
   ],
   providers: [

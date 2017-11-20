@@ -21,7 +21,7 @@ export class HomePage {
   ordNumer:any;
   distId:any;
 
-  userId:number;
+  userId:any;
   userLevel:number;
 
   ordertype:any;
@@ -64,7 +64,7 @@ export class HomePage {
 
       'prior': [1],
       'tecnico_assign': [1],
-      'state': [1],
+      'state': [0],
       'obs': [''],
     });
 

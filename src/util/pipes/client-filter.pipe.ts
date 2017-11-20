@@ -11,9 +11,7 @@ export class ClientFilterPipe implements PipeTransform {
       if (name && name!="" ) {
         array= _.filter(array, row=>row['name'].toLowerCase().indexOf(name.toLowerCase()) > -1);
       }
-
       return array;
-
     }
 
 

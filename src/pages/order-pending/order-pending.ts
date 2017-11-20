@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, AlertController, ModalController, LoadingController} from 'ionic-angular';
-import {FormBuilder} from "@angular/forms";
+import {NavController, NavParams, LoadingController, ModalController, AlertController} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
+import {FormBuilder} from "@angular/forms";
+
+/**
+ * Generated class for the OrderPendingPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @Component({
-  selector: 'page-list',
-  templateUrl: 'list.html'
+  selector: 'page-order-pending',
+  templateUrl: 'order-pending.html',
 })
-export class ListPage {
+export class OrderPendingPage {
   selectedItem: any;
   icons: string[];
 
@@ -16,24 +23,24 @@ export class ListPage {
   orders:any;
   loaderMsg:any;
 
+
   constructor(public navCtrl: NavController,
               public loadingCtrl: LoadingController,
-  public modalCtrl: ModalController,
-  private alertController: AlertController,
-  public orderService:OrderService,
-  private fb:FormBuilder) {
+              public modalCtrl: ModalController,
+              private alertController: AlertController,
+              public orderService:OrderService,
+              private fb:FormBuilder) {
     this.getOrders();
   }
 
   getOrders(){
-      this.loadMessage("Cargando Ordenes");
+    this.loadMessage("Cargando Ordenes");
     this.orderService.getOrders().subscribe(data=>{
       console.log(data);
       this.loadMessage(null);
       this.orders=data;
     })
   }
-
 
   loadMessage(msg){
     if(msg){
