@@ -11,22 +11,31 @@
   <ion-row>
     <ion-col>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="search"  placeholder="Numero a Buscar" ></ion-input>
+        <ion-label color="primary" class="label-form" stacked>Buscador:</ion-label>
+        <ion-input type="text" [(ngModel)]="search"  placeholder="Número | Cliente | Maquina" ></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
 
   <ion-list inset>
-    <ion-card *ngFor="let order of orders | dataFilterOrder : search" (click)="selectOrder(order)">
-      <ion-card-header>
+    <ion-card *ngFor="let order of orders | dataFilterOrder : search" >
+      <ion-card-header style="padding: 5px!important;">
         {{ order.numero }} - {{ order.fing }}
       </ion-card-header>
-      <ion-card-content>
-        <ion-label>Cliente: {{order.nme}}</ion-label>
-        <ion-label *ngIf="order.estd==0">Estado: Pendiente</ion-label>
-        <ion-label *ngIf="order.estd==1">Estado: Proceso</ion-label>
-        <ion-label *ngIf="order.estd==2">Estado: Cerrada</ion-label>
-
+      <ion-card-content style="padding: 5px!important;">
+        <ion-label style="margin: 0px!important;"><b>Cliente:</b> {{order.nme}}</ion-label>
+        <ion-label *ngIf="order.estd==0" style="margin: 0px!important;"><b>Estado:</b> Pendiente</ion-label>
+        <ion-label *ngIf="order.estd==1" style="margin: 0px!important;"><b>Estado:</b> Proceso</ion-label>
+        <ion-label *ngIf="order.estd==2" style="margin: 0px!important;"><b>Estado:</b> Cerrada</ion-label>
+        <ion-label style="margin: 0px!important;"><b>Maquina:</b> {{order.maquina}}</ion-label>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button class="btn-karcher" (click)="selectOrder(order,true)"  style="width: 100%" type="button">Detalle</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button class="btn-karcher" (click)="selectOrder(order,false)"  style="width: 100%" type="button">Acciones</button>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
 
     </ion-card>

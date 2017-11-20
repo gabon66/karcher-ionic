@@ -40,15 +40,15 @@ export class HomePage {
       'date': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'type_ord': [1],
       'user_rec': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'distri': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'distri': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
 
       'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
       'n_parte': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'modelo': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'modelo': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
       'serie': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 
-      'cliente': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'contacto': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'cliente': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+      'contacto': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       'telefono': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 

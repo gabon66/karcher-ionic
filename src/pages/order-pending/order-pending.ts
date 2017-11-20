@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {NavController, NavParams, LoadingController, ModalController, AlertController} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
 import {FormBuilder} from "@angular/forms";
+import {ModalOrderPage} from "../modal-order/modal-order";
+import {ModalAccionOrderPage} from "../modal-accion-order/modal-accion-order";
 
 /**
  * Generated class for the OrderPendingPage page.
@@ -30,6 +32,10 @@ export class OrderPendingPage {
               private alertController: AlertController,
               public orderService:OrderService,
               private fb:FormBuilder) {
+
+  }
+
+  ionViewDidLoad() {
     this.getOrders();
   }
 
@@ -54,8 +60,18 @@ export class OrderPendingPage {
     }
   }
 
-  selectOrder(item){
-    console.log(item);
-  }
+  selectOrder(item,detail:boolean){
+    let modal
+    if(detail){
+      modal = this.modalCtrl.create(ModalOrderPage,item);
+      modal.present();
+    }else {
+      modal = this.modalCtrl.create(ModalAccionOrderPage,item);
+      modal.present();
+    }
 
+    modal.onDidDismiss(data=>{
+        this.getOrders();
+    })
+  }
 }

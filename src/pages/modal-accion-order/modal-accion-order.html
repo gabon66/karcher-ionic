@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ModalAccionOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Orden: {{order.numero}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+
+  <ion-card>
+    <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary"  class="label-form" stacked>Prioridad Cliente:</ion-label>
+              <ion-select [(ngModel)]="orderPriorSelected">
+                <ion-option *ngFor="let prio of orderPrior" [value]="prio">{{prio.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+  </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label color="primary" class="label-form" stacked>Estado:</ion-label>
+            <ion-select [(ngModel)]="orderStateSelected">
+              <ion-option *ngFor="let state of orderState" [value]="state" >{{state.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="back()" >Asignarme Orden</button>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-footer style="text-align: center" >
+    <ion-row >
+      <ion-col col-12>
+        <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="back()" >Volver</button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
+</ion-content>

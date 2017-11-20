@@ -25,6 +25,7 @@ import {OrderProcessPage} from "../pages/order-process/order-process";
 import {OrderClosedPage} from "../pages/order-closed/order-closed";
 import {TabOrderPage} from "../pages/tab-order/tab-order";
 import {ModalOrderPage} from "../pages/modal-order/modal-order";
+import {ModalAccionOrderPage} from "../pages/modal-accion-order/modal-accion-order";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ModalOrderPage} from "../pages/modal-order/modal-order";
     OrderClosedPage,
     TabOrderPage,
     ModalOrderPage,
-    ModalClientPage
+    ModalClientPage,
+    ModalAccionOrderPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import {ModalOrderPage} from "../pages/modal-order/modal-order";
     OrderClosedPage,
     TabOrderPage,
     ModalOrderPage,
-    ModalClientPage
+    ModalClientPage,
+    ModalAccionOrderPage
   ],
   providers: [
     StatusBar,

@@ -7,12 +7,54 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ModalOrder</ion-title>
+    <ion-title>Orden: {{ order.numero }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
+  <ion-card>
+    <ion-card-content>
+      <ion-scroll scrollY="true" style="height: 540px">
+      <ion-label>FECHA INGRESO: {{ order.fing }} </ion-label>
+      <ion-label>FECHA CIERRE: {{ order.fclose }} </ion-label>
+      <ion-label *ngIf="order.estd==0">ESTADO: Pendiente</ion-label>
+      <ion-label *ngIf="order.estd==1">ESTADO: Proceso</ion-label>
+      <ion-label *ngIf="order.estd==2">ESTADO: Cerrada</ion-label>
+      <ion-label>INGRESADO POR: {{order.tecnico_rec}}</ion-label>
+      <ion-label>TECNICO ASIGNADO: {{order.nme}}</ion-label>
+
+      <ion-label *ngIf="order.tipo==1">TIPO ORDEN: Garantía</ion-label>
+      <ion-label *ngIf="order.tipo==2">TIPO ORDEN: Reparación</ion-label>
+      <ion-label *ngIf="order.tipo==3">TIPO ORDEN: Presupuesto</ion-label>
+      <ion-label *ngIf="order.tipo==4">TIPO ORDEN: Pre-Entrega</ion-label>
+      <ion-label *ngIf="order.tipo==5">TIPO ORDEN: Prospecto</ion-label>
+      <ion-label>CLIENTE: {{order.nme}}</ion-label>
+      <ion-label>MAQUINA: {{order.maquina}} </ion-label>
+      <ion-label *ngIf="order.prd==1">PRIORIDAD: Baja</ion-label>
+      <ion-label *ngIf="order.prd==2">PRIORIDAD: Media</ion-label>
+      <ion-label *ngIf="order.prd==3">PRIORIDAD: Alta</ion-label>
+
+      <ion-label>ACCESORIO 1: {{order.acc1}} </ion-label>
+      <ion-label>ACCESORIO 2: {{order.acc2}} </ion-label>
+      <ion-label>ACCESORIO 3: {{order.acc3}} </ion-label>
+      <ion-label>ACCESORIO 4: {{order.acc4}} </ion-label>
+      <ion-label>ACCESORIO 5: {{order.acc5}} </ion-label>
+      <ion-label>ACCESORIO 6: {{order.acc6}} </ion-label>
+      <ion-label>ACCESORIO 7: {{order.acc7}} </ion-label>
+      <ion-label>ACCESORIO 8: {{order.acc8}} </ion-label>
+      <ion-label>OBSERVACIONES: {{order.obs}} </ion-label>
+
+      </ion-scroll>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer style="text-align: center" >
+    <ion-row >
+      <ion-col col-12>
+        <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="back()" >Volver</button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>
 </ion-content>

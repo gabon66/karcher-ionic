@@ -19,17 +19,16 @@ export class MenuPage {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = TabOrderPage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.pages = [
-      { title: 'Orden', component: HomePage },
-      { title: 'Control', component: TabOrderPage }
+      { title: 'Nueva Orden', component: HomePage },
+      { title: 'Control de Ordenes', component: TabOrderPage }
     ];
   }
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');

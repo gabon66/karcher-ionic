@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, ViewController} from 'ionic-angular';
 
 /**
  * Generated class for the ModalOrderPage page.
@@ -14,11 +14,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ModalOrderPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  order:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public params: NavParams, public viewCtrl: ViewController) {
+    this.order=this.params.data;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalOrderPage');
   }
-
+  back(){
+    this.viewCtrl.dismiss();
+  }
 }
