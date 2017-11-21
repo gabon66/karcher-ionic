@@ -27,6 +27,7 @@ import {TabOrderPage} from "../pages/tab-order/tab-order";
 import {ModalOrderPage} from "../pages/modal-order/modal-order";
 import {ModalAccionOrderPage} from "../pages/modal-accion-order/modal-accion-order";
 import {ModalOrderCountPage} from "../pages/modal-order-count/modal-order-count";
+import {ConfigPage} from "../pages/config/config";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {ModalOrderCountPage} from "../pages/modal-order-count/modal-order-count"
     ModalOrderPage,
     ModalClientPage,
     ModalAccionOrderPage,
-    ModalOrderCountPage
+    ModalOrderCountPage,
+    ConfigPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ import {ModalOrderCountPage} from "../pages/modal-order-count/modal-order-count"
     ModalOrderPage,
     ModalClientPage,
     ModalAccionOrderPage,
-    ModalOrderCountPage
+    ModalOrderCountPage,
+    ConfigPage
   ],
   providers: [
     StatusBar,

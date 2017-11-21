@@ -42,7 +42,8 @@ export class HomePage {
       'user_rec': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'distri': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
 
-      'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
+      //'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'barra': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'n_parte': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'modelo': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
       'serie': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -102,13 +103,15 @@ export class HomePage {
       if(!serial_tmp.cancelled){
 
         this.form.controls.barra.setValue(serial_tmp.text);
+        this.checkBarraCode();
+
         console.log(barcodeData);
 
       }
     }, (err) => {
       let alert = this.alertController.create({
         title: 'Error',
-        subTitle: 'Error al escanear imagen, intente nuevamente o ingrese el codigo a mano',
+        subTitle: err,
         buttons: ['Aceptar']
       });
       alert.present();

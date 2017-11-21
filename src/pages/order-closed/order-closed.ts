@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, AlertController, ModalController, LoadingController, Events} from 'ionic-angular';
+import {OrderService} from "../../util/services/order.service";
+import {ModalOrderCountPage} from "../modal-order-count/modal-order-count";
+import {FormBuilder} from "@angular/forms";
+import {ModalOrderPage} from "../modal-order/modal-order";
+import {ModalAccionOrderPage} from "../modal-accion-order/modal-accion-order";
 
 /**
  * Generated class for the OrderClosedPage page.
@@ -13,12 +18,77 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'order-closed.html',
 })
 export class OrderClosedPage {
+  selectedItem: any;
+  icons: string[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  search:string="";
+  orders:any;
+  loaderMsg:any;
+
+
+
+
+  constructor(public navCtrl: NavController,
+              public loadingCtrl: LoadingController,
+              public modalCtrl: ModalController,
+              private events: Events,
+              private alertController: AlertController,
+              public orderService:OrderService,
+              private fb:FormBuilder) {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderClosedPage');
+  ionViewDidEnter(){
+    this.getOrders();
+  }
+  openCountPage(){
+    let modal
+    let data:any={countname:"closedcount"};
+    modal = this.modalCtrl.create(ModalOrderCountPage,data);
+
+
+    modal.present();
+    modal.onDidDismiss(data=>{
+      this.getOrders();
+    })
   }
 
+  getOrders(){
+    this.loadMessage("Cargando Ordenes");
+    let  count=localStorage.getItem("closedcount");
+
+    this.orderService.getOrdersCustom(count,2).subscribe(data=>{
+      console.log(data);
+      this.events.publish('cant-closed', data.length);
+      this.loadMessage(null);
+      this.orders=data;
+    })
+  }
+
+  loadMessage(msg){
+    if(msg){
+      this.loaderMsg = this.loadingCtrl.create({
+        content:msg,
+      });
+      this.loaderMsg.present();
+    }else {
+      this.loaderMsg.dismissAll();
+      this.loaderMsg=null;
+    }
+  }
+
+  selectOrder(item,detail:boolean){
+    let modal
+    if(detail){
+      modal = this.modalCtrl.create(ModalOrderPage,item);
+      modal.present();
+    }else {
+      modal = this.modalCtrl.create(ModalAccionOrderPage,item);
+      modal.present();
+    }
+    modal.onDidDismiss(data=>{
+      this.getOrders();
+    })
+  }
 }

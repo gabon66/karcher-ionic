@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, Events} from 'ionic-angular';
 import {OrderPendingPage} from "../order-pending/order-pending";
 import {OrderProcessPage} from "../order-process/order-process";
 import {OrderClosedPage} from "../order-closed/order-closed";
@@ -20,8 +20,26 @@ export class TabOrderPage {
   tab1Root = OrderPendingPage;
   tab2Root = OrderProcessPage;
   tab3Root = OrderClosedPage;
+  cantpend:any=0;
+  cantproc:any=0;
+  cantclosed:any=0;
+  constructor(public navCtrl: NavController, public navParams: NavParams,events: Events) {
+    events.subscribe('cant-pending', (data) => {
+      this.cantpend=data;
+    });
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    events.subscribe('cant-proc', (data) => {
+      this.cantproc=data;
+    });
+
+    events.subscribe('cant-closed', (data) => {
+
+      this.cantclosed=data;
+    });
+  }
+
+  getCant(cant){
+
   }
 
   ionViewDidLoad() {

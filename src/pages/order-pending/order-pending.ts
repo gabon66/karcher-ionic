@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController, AlertController} from 'ionic-angular';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {NavController, NavParams, LoadingController, ModalController, AlertController, Events} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
 import {FormBuilder} from "@angular/forms";
 import {ModalOrderPage} from "../modal-order/modal-order";
@@ -20,7 +20,7 @@ import {ModalOrderCountPage} from "../modal-order-count/modal-order-count";
 export class OrderPendingPage {
   selectedItem: any;
   icons: string[];
-
+  @Output() cantOutput = new EventEmitter();
 
   search:string="";
   orders:any;
@@ -30,6 +30,7 @@ export class OrderPendingPage {
 
 
   constructor(public navCtrl: NavController,
+              private events: Events,
               public loadingCtrl: LoadingController,
               public modalCtrl: ModalController,
               private alertController: AlertController,
@@ -38,14 +39,14 @@ export class OrderPendingPage {
 
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter(){
     this.getOrders();
   }
 
   openCountPage(){
     let modal
-
-    modal = this.modalCtrl.create(ModalOrderCountPage);
+    let data:any={countname:"pendingcount"};
+    modal = this.modalCtrl.create(ModalOrderCountPage,data);
     modal.present();
     modal.onDidDismiss(data=>{
       this.getOrders();
@@ -58,6 +59,9 @@ export class OrderPendingPage {
 
     this.orderService.getOrdersCustom(count,0).subscribe(data=>{
       console.log(data);
+      //debugger
+      this.cantOutput.emit(data.length);
+      this.events.publish('cant-pending', data.length);
       this.loadMessage(null);
       this.orders=data;
     })

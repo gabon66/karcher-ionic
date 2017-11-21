@@ -28,7 +28,7 @@ export class ModalOrderCountPage {
     ]
 
     for(let cant of this.cants){
-      if (localStorage.getItem("pendingcount")==cant.number)
+      if (localStorage.getItem(this.navParams.data.countname)==cant.number)
       {
         this.cant_selected=cant
       }
@@ -36,7 +36,7 @@ export class ModalOrderCountPage {
   }
 
   onSelectChange(event){
-    localStorage.setItem("pendingcount",this.cant_selected.number);
+    localStorage.setItem(this.navParams.data.countname,this.cant_selected.number);
     this.viewCtrl.dismiss();
   }
 
