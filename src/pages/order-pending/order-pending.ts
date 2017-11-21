@@ -4,6 +4,7 @@ import {OrderService} from "../../util/services/order.service";
 import {FormBuilder} from "@angular/forms";
 import {ModalOrderPage} from "../modal-order/modal-order";
 import {ModalAccionOrderPage} from "../modal-accion-order/modal-accion-order";
+import {ModalOrderCountPage} from "../modal-order-count/modal-order-count";
 
 /**
  * Generated class for the OrderPendingPage page.
@@ -26,6 +27,8 @@ export class OrderPendingPage {
   loaderMsg:any;
 
 
+
+
   constructor(public navCtrl: NavController,
               public loadingCtrl: LoadingController,
               public modalCtrl: ModalController,
@@ -39,9 +42,21 @@ export class OrderPendingPage {
     this.getOrders();
   }
 
+  openCountPage(){
+    let modal
+
+    modal = this.modalCtrl.create(ModalOrderCountPage);
+    modal.present();
+    modal.onDidDismiss(data=>{
+      this.getOrders();
+    })
+  }
+
   getOrders(){
     this.loadMessage("Cargando Ordenes");
-    this.orderService.getOrders().subscribe(data=>{
+    let  count=localStorage.getItem("pendingcount");
+
+    this.orderService.getOrdersCustom(count,0).subscribe(data=>{
       console.log(data);
       this.loadMessage(null);
       this.orders=data;
@@ -69,7 +84,6 @@ export class OrderPendingPage {
       modal = this.modalCtrl.create(ModalAccionOrderPage,item);
       modal.present();
     }
-
     modal.onDidDismiss(data=>{
         this.getOrders();
     })

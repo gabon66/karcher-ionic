@@ -63,7 +63,7 @@ export class HomePage {
       'acc8': [''],
 
       'prior': [1],
-      'tecnico_assign': [1],
+      'tecnico_assign': [0],
       'state': [0],
       'obs': [''],
     });
@@ -183,7 +183,7 @@ export class HomePage {
           this.userLevel=data.user.level;
 
 
-
+          this.orderUsersDist.push({"id":0,name:"Sin Asignar"});
           if (data.usersDist){
             for (var e = 0; e < data.usersDist.length; e++) {
               this.orderUsersDist.push({"id": data.usersDist[e].id,
@@ -241,7 +241,7 @@ export class HomePage {
 
 
     data.append('client_id', this.client_id);
-    data.append('tecnico', this.userId);
+    data.append('tecnico', formData.tecnico_assign);
     data.append('estado',  formData.state);
     data.append('obs', formData.obs);
 

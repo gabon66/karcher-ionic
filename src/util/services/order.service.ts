@@ -38,8 +38,28 @@ export class OrderService {
       });
   }
 
+  updateOrder(id , dataPost:any){
+    let url = environment.api.baseUrlApi+"movil/order/"+id;
+    return this.http.put(url,dataPost)
+      .map((response: Response) => response.json())
+      .catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+
   getOrders(){
     let url = environment.api.baseUrlApi+"movil/orders";
+    return this.http.get(url)
+      .map((response: Response) => response.json())
+      .catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  getOrdersCustom(count, state){
+
+    let url = environment.api.baseUrlApi+"movil/orderscustom/"+count+"/"+state;
     return this.http.get(url)
       .map((response: Response) => response.json())
       .catch((err: Response) => {

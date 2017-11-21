@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, ViewController} from 'ionic-angular';
+import {NavController, NavParams, ViewController, AlertController} from 'ionic-angular';
 import {FormBuilder} from "@angular/forms";
+import {OrderService} from "../../util/services/order.service";
+import {URLSearchParams} from "@angular/http";
 
 /**
  * Generated class for the ModalAccionOrderPage page.
@@ -21,20 +23,55 @@ export class ModalAccionOrderPage {
   orderPrior:any=[];
 
   orderStateSelected:any;
-
+  obs:any="";
   orderPriorSelected:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public params: NavParams, public viewCtrl: ViewController,private fb:FormBuilder) {
+
+  me:any;
+  constructor(public navCtrl: NavController,
+              public orderService:OrderService,
+              public navParams: NavParams,
+              public params: NavParams,
+              private alertController: AlertController,
+              public viewCtrl: ViewController,
+              private fb:FormBuilder) {
 
     this.order=this.params.data;
-    this.orderState=[{id:0, name:"Pendiente"},{id:3, name:"Proceso"},{id:2, name:"Cerrada"}];
-    this.orderPrior=[{id:1, name:"Baja"},
-      {id:2, name:"Media"},
-      {id:3, name:"Alta"},
-    ];
+    this.orderState=[{id:0, name:"Pendiente"},{id:1, name:"Proceso"},{id:2, name:"Cerrada"}];
+    this.obs=this.order.obs;
+    this.me=JSON.parse(localStorage.getItem("me"));
 
-    this.orderStateSelected=this.orderState[0];
-    this.orderPriorSelected=this.orderPrior[0];
 
+    for(let state of this.orderState){
+      if (state.id==this.order.estd){
+        this.orderStateSelected=state;
+      }
+    }
+  }
+
+
+  saveObs(){
+
+  }
+
+  autoAsign(){
+    let data = new URLSearchParams();
+    this.order.obs=this.obs;
+    data.append('tecnico',this.me.id);
+    data.append('estado', this.orderStateSelected.id);
+    data.append('obs',  this.order.obs);
+
+    this.orderService.updateOrder(this.order.id,data ).subscribe(data=>{
+
+
+      let alert = this.alertController.create({
+        title: 'Orden',
+        subTitle: 'Actualizada con éxito',
+        buttons: ['Aceptar']
+      });
+      //this.nav.push(LoginPage);
+      alert.present();
+      this.viewCtrl.dismiss();
+    })
   }
 
   ionViewDidLoad() {
@@ -42,6 +79,29 @@ export class ModalAccionOrderPage {
   }
   back(){
     this.viewCtrl.dismiss();
+  }
+
+  onSelectChange(event:any){
+
+
+    let data = new URLSearchParams();
+    this.order.obs=this.obs;
+    data.append('tecnico',this.order.tecnico_id );
+    data.append('estado', this.orderStateSelected.id);
+    data.append('obs',  this.order.obs);
+
+    this.orderService.updateOrder(this.order.id,data ).subscribe(data=>{
+
+
+      let alert = this.alertController.create({
+        title: 'Orden',
+        subTitle: 'Actualizada con éxito',
+        buttons: ['Aceptar']
+      });
+      //this.nav.push(LoginPage);
+      alert.present();
+      this.viewCtrl.dismiss();
+    })
   }
 
 }

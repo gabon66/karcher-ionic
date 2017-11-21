@@ -1,0 +1,13 @@
+page-modal-order-count {
+  .modal-count{
+    border-radius: 5px;
+
+    overflow: hidden!important;
+    overflow-y:hidden!important;
+    background: rgb(40, 40, 40)!important; /* Fallback for older browsers without RGBA-support */
+    background: rgba(40, 40, 40,0.9)!important;
+    text-align: center;
+    padding-top: 30%;
+  }
+
+}

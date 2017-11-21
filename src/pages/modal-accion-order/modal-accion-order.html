@@ -14,32 +14,13 @@
 
 
 <ion-content padding>
-
-
-
-  <ion-card>
-    <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label color="primary"  class="label-form" stacked>Prioridad Cliente:</ion-label>
-              <ion-select [(ngModel)]="orderPriorSelected">
-                <ion-option *ngFor="let prio of orderPrior" [value]="prio">{{prio.name}}</ion-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-  </ion-card-content>
-  </ion-card>
-
-
   <ion-card>
     <ion-card-content>
       <ion-row>
         <ion-col>
           <ion-item>
             <ion-label color="primary" class="label-form" stacked>Estado:</ion-label>
-            <ion-select [(ngModel)]="orderStateSelected">
+            <ion-select [(ngModel)]="orderStateSelected" (ionChange)="onSelectChange($event)">
               <ion-option *ngFor="let state of orderState" [value]="state" >{{state.name}}</ion-option>
             </ion-select>
           </ion-item>
@@ -48,9 +29,20 @@
     </ion-card-content>
   </ion-card>
 
+
+
   <ion-card>
     <ion-card-content>
-      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="back()" >Asignarme Orden</button>
+      <ion-label color="primary" class="label-form" stacked>Observaciones:</ion-label>
+      <ion-textarea type="text" [(ngModel)]="obs"  placeholder=""></ion-textarea>
+      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="saveObs()" >Gardar</button>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card [hidden]="me.id==order.tecnico_id">
+    <ion-card-content>
+      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="autoAsign()" >Asignarme Orden</button>
     </ion-card-content>
   </ion-card>
 

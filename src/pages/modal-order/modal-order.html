@@ -23,7 +23,7 @@
       <ion-label *ngIf="order.estd==1">ESTADO: Proceso</ion-label>
       <ion-label *ngIf="order.estd==2">ESTADO: Cerrada</ion-label>
       <ion-label>INGRESADO POR: {{order.tecnico_rec}}</ion-label>
-      <ion-label>TECNICO ASIGNADO: {{order.nme}}</ion-label>
+      <ion-label>TECNICO ASIGNADO: {{order.tecnico_name}}</ion-label>
 
       <ion-label *ngIf="order.tipo==1">TIPO ORDEN: Garantía</ion-label>
       <ion-label *ngIf="order.tipo==2">TIPO ORDEN: Reparación</ion-label>

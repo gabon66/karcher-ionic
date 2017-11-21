@@ -64,6 +64,11 @@ export class LoginPage {
         // get me profile
         this.loadMessage(null);
         localStorage.setItem("token",dataLogin.tokenLogin)
+        localStorage.setItem("me",JSON.stringify(dataLogin));
+        localStorage.setItem("pendingcount","10");
+        localStorage.setItem("processcount","10");
+        localStorage.setItem("closedcount","10");
+
 
         //this.navCtrl.first();
         this.navCtrl.push(MenuPage);

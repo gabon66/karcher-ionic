@@ -260,7 +260,7 @@
             <ion-item>
               <ion-label color="primary" class="label-form" stacked>Tecnico Asignado:</ion-label>
               <ion-select formControlName="tecnico_assign">
-                <ion-option *ngFor="let user of orderUsersDist" value="1">{{user.name}}</ion-option>
+                <ion-option *ngFor="let user of orderUsersDist" value="{{user.id}}">{{user.name}}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>
