@@ -3,6 +3,7 @@ import {NavController, NavParams, Events} from 'ionic-angular';
 import {OrderPendingPage} from "../order-pending/order-pending";
 import {OrderProcessPage} from "../order-process/order-process";
 import {OrderClosedPage} from "../order-closed/order-closed";
+import {UserService} from "../../util/services/user.service";
 
 /**
  * Generated class for the TabOrderPage page.
@@ -23,7 +24,7 @@ export class TabOrderPage {
   cantpend:any=0;
   cantproc:any=0;
   cantclosed:any=0;
-  constructor(public navCtrl: NavController, public navParams: NavParams,events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,events: Events,public  userService:UserService) {
     events.subscribe('cant-pending', (data) => {
       this.cantpend=data;
     });
@@ -36,6 +37,11 @@ export class TabOrderPage {
 
       this.cantclosed=data;
     });
+
+    this.userService.putToken().subscribe(data=>{
+      console.log("token posteado");
+    })
+
   }
 
   getCant(cant){

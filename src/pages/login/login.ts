@@ -63,15 +63,23 @@ export class LoginPage {
       this.loginService.login(values.username,values.password).subscribe(dataLogin=>{
         // get me profile
         this.loadMessage(null);
-        localStorage.setItem("token",dataLogin.tokenLogin)
-        localStorage.setItem("me",JSON.stringify(dataLogin));
-        localStorage.setItem("pendingcount","10");
-        localStorage.setItem("processcount","10");
-        localStorage.setItem("closedcount","10");
+        //debugger
+        if(dataLogin){
+          if (dataLogin.tokenLogin!=null){
+            localStorage.setItem("token",dataLogin.tokenLogin)
 
-
-        //this.navCtrl.first();
-        this.navCtrl.push(MenuPage);
+            localStorage.setItem("me",JSON.stringify(dataLogin));
+            localStorage.setItem("pendingcount","10");
+            localStorage.setItem("processcount","10");
+            localStorage.setItem("closedcount","10");
+            //this.navCtrl.first();
+            this.navCtrl.push(MenuPage);
+          }else {
+            this.msgerror="Error de credenciales";
+          }
+        }else {
+          this.msgerror="Error de credenciales";
+        }
 
       },error=>{
         console.log(error);

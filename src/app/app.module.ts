@@ -30,6 +30,7 @@ import {ModalOrderCountPage} from "../pages/modal-order-count/modal-order-count"
 import {ConfigPage} from "../pages/config/config";
 import {MensajesPage} from "../pages/mensajes/mensajes";
 import {UserService} from "../util/services/user.service";
+import {Push} from "@ionic-native/push";
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {UserService} from "../util/services/user.service";
   providers: [
     StatusBar,
     SplashScreen,
+    Push,
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpService,

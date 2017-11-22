@@ -34,7 +34,7 @@ export class MyApp {
   pushsetup() {
     const options: PushOptions = {
       android: {
-        senderID: '171694798746'
+        //senderID: '171694798746'
       },
       ios: {
         alert: 'true',
@@ -58,6 +58,7 @@ export class MyApp {
 
     pushObject.on('registration').subscribe((registration: any) => {
       console.log(registration);
+
       if(registration){
         localStorage.setItem('push_token',registration.registrationId);
       }

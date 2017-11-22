@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, AlertController, ModalController} from 'ionic-angular';
+import {NavController, AlertController, ModalController, LoadingController} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
@@ -33,6 +33,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               private barcodeScanner: BarcodeScanner,
+              public loadingCtrl: LoadingController,
               private alertController: AlertController,
               public orderService:OrderService,
               private fb:FormBuilder) {
@@ -161,11 +162,26 @@ export class HomePage {
   }
 
 
+  loadMessage(msg){
+    if(msg){
+      this.loaderMsg = this.loadingCtrl.create({
+        content:msg,
+      });
+      this.loaderMsg.present();
+    }else {
+      this.loaderMsg.dismissAll();
+      this.loaderMsg=null;
+    }
+  }
+
   getNewOrder(){
+    this.loadMessage("Validando Punto de Distribución")
+
     this.orderService.getNewOrder().subscribe(data=>{
       console.log(data);
-
+      this.loadMessage(null);
       if(data.dist){
+
         if(data.dist.dir){
 
 
@@ -175,12 +191,14 @@ export class HomePage {
           this.ordNumer=countryName.substring(0,2)+ ("0000"+data.user.idDistribuidor).slice(-4)+("0000"+data.next).slice(-4)
           this.form.controls.distri.setValue(data.dist.name);
 
+
           this.distId=data.dist.id;
 
 
           this.form.controls.user_rec.setValue(data.user.lastName + " "+data.user.name);
           this.form.controls.user_rec.disable();
-          this.form.controls.date.setValue(new Date().toDateString());
+
+          this.form.controls.date.setValue(this.formatDate(new Date()));
 
           this.userId=data.user.id;
           this.userLevel=data.user.level;
@@ -280,6 +298,10 @@ export class HomePage {
     },error=>{
       console.log(error);
     })
+  }
+
+  formatDate(date){
+    return  date.getDate().toString()+'-'+(date.getMonth()+1).toString()+'-'+date.getFullYear().toString() +' '+date.getHours()+':'+date.getMinutes() ;
   }
 
 }

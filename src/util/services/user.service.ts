@@ -112,4 +112,11 @@ export class UserService {
     return this.http.get(url).map((response: Response) => response.json());
   }
 
+  putToken(){
+    let url = environment.api.baseUrlApi+"movil/user/token";
+    let data = new URLSearchParams();
+    data.append('token', localStorage.getItem("push_token"));
+    return this.http.put(url,data).map((response: Response) => response.json());
+  }
+
 }
