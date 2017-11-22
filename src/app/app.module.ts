@@ -28,6 +28,8 @@ import {ModalOrderPage} from "../pages/modal-order/modal-order";
 import {ModalAccionOrderPage} from "../pages/modal-accion-order/modal-accion-order";
 import {ModalOrderCountPage} from "../pages/modal-order-count/modal-order-count";
 import {ConfigPage} from "../pages/config/config";
+import {MensajesPage} from "../pages/mensajes/mensajes";
+import {UserService} from "../util/services/user.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import {ConfigPage} from "../pages/config/config";
     ModalClientPage,
     ModalAccionOrderPage,
     ModalOrderCountPage,
-    ConfigPage
+    ConfigPage,
+    MensajesPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import {ConfigPage} from "../pages/config/config";
     ModalClientPage,
     ModalAccionOrderPage,
     ModalOrderCountPage,
-    ConfigPage
+    ConfigPage,
+    MensajesPage
   ],
   providers: [
     StatusBar,
@@ -78,6 +82,7 @@ import {ConfigPage} from "../pages/config/config";
     HttpService,
     OrderService,
     HelperService,
+    UserService,
     AuthServiceProvider,
     AuthenticationService,
   ]

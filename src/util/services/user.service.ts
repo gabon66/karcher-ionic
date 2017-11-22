@@ -107,6 +107,9 @@ export class UserService {
 
   }
 
-
+  getMessages(){
+    let url = environment.api.baseUrlApi+"movil/mensajes";
+    return this.http.get(url).map((response: Response) => response.json());
+  }
 
 }

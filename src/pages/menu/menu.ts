@@ -5,6 +5,7 @@ import { Nav, Platform } from 'ionic-angular';
 import {ListPage} from "../list/list";
 import {TabOrderPage} from "../tab-order/tab-order";
 import {ConfigPage} from "../config/config";
+import {MensajesPage} from "../mensajes/mensajes";
 /**
  * Generated class for the MenuPage page.
  *
@@ -28,6 +29,7 @@ export class MenuPage {
     this.pages = [
       { title: 'Nueva Orden', component: HomePage },
       { title: 'Control de Ordenes', component: TabOrderPage },
+      { title: 'Bandeja de Entrada', component: MensajesPage },
       { title: 'Configuracíon', component: ConfigPage }
     ];
   }
