@@ -68,7 +68,16 @@ export class OrderProcessPage {
       this.events.publish('cant-proc', data.length);
       this.loadMessage(null);
       this.orders=data;
-    })
+    },error=>{
+      this.loadMessage(null);
+      let alert = this.alertController.create({
+        title: 'Error',
+        subTitle: 'Error de conexión con la plataforma',
+        buttons: ['Aceptar']
+      });
+      //this.nav.push(LoginPage);
+      alert.present();
+    });
   }
 
   loadMessage(msg){

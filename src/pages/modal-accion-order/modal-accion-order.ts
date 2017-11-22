@@ -92,7 +92,6 @@ export class ModalAccionOrderPage {
 
     this.orderService.updateOrder(this.order.id,data ).subscribe(data=>{
 
-
       let alert = this.alertController.create({
         title: 'Orden',
         subTitle: 'Actualizada con éxito',

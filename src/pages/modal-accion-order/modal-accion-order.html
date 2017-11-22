@@ -14,7 +14,10 @@
 
 
 <ion-content padding>
-  <ion-card>
+
+
+
+  <ion-card *ngIf="order.tecnico_id">
     <ion-card-content>
       <ion-row>
         <ion-col>
@@ -29,13 +32,18 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-card *ngIf="!order.tecnico_id">
+    <ion-card-content>
+      <label>No puede cambiar el estado , por que no esta asociado a ningun tecnico.</label>
+    </ion-card-content>
+  </ion-card>
 
 
   <ion-card>
     <ion-card-content>
       <ion-label color="primary" class="label-form" stacked>Observaciones:</ion-label>
       <ion-textarea type="text" [(ngModel)]="obs"  placeholder=""></ion-textarea>
-      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="saveObs()" >Gardar</button>
+      <button ion-button class="btn-karcher"  style="width: 100%" type="button" (click)="saveObs()" >Guardar</button>
     </ion-card-content>
   </ion-card>
 
