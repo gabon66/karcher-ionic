@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, LoadingController} from 'ionic-angular';
 import {UserService} from "../../util/services/user.service";
 
 /**
@@ -14,14 +14,31 @@ import {UserService} from "../../util/services/user.service";
   templateUrl: 'mensajes.html',
 })
 export class MensajesPage {
-
+  loaderMsg:any;
   mensajes:any=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public  userService:UserService) {
+  constructor(public navCtrl: NavController,
+              public loadingCtrl: LoadingController,
+              public navParams: NavParams,public  userService:UserService) {
+
   }
 
   ionViewDidLoad() {
+      this.loadMessage("Cargando Mensajes");
       this.userService.getMessages().subscribe(data=>{
         this.mensajes=data;
+        this.loadMessage(null);
       })
+  }
+
+  loadMessage(msg){
+    if(msg){
+      this.loaderMsg = this.loadingCtrl.create({
+        content:msg,
+      });
+      this.loaderMsg.present();
+    }else {
+      this.loaderMsg.dismissAll();
+      this.loaderMsg=null;
+    }
   }
 }
