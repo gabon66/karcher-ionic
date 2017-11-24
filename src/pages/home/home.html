@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" [hidden]="!userValid">
 
     <ion-card>
       <ion-card-content [hidden]="step!=1">

@@ -23,7 +23,7 @@ export class HomePage {
 
   userId:any;
   userLevel:number;
-
+  userValid:boolean=true;
   ordertype:any;
   step:number=1;
   maquina_id:any;
@@ -184,7 +184,7 @@ export class HomePage {
 
         if(data.dist.dir){
 
-
+          this.userValid=true;
           let countryName= data.dist.dir.split(",")[data.dist.dir.split(",").length-1].toUpperCase().trim();
 
 
@@ -224,18 +224,20 @@ export class HomePage {
           }
 
         }else {
+          this.userValid=false;
           let alert = this.alertController.create({
             title: 'Error',
-            subTitle: 'No tiene una dirección valida asiganada a su punto de distribución',
+            subTitle: 'No tiene una dirección valida asignada a su punto de distribución',
             buttons: ['Aceptar']
           });
           //this.nav.push(LoginPage);
           alert.present();
         }
       }else {
+        this.userValid=false;
         let alert = this.alertController.create({
           title: 'Error',
-          subTitle: 'No tiene una dirección valida asiganada a su punto de distribución',
+          subTitle: 'No tiene una dirección valida asignada a su punto de distribución',
           buttons: ['Aceptar']
         });
         //this.nav.push(LoginPage);
