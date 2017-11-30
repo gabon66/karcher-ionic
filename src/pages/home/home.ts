@@ -48,8 +48,8 @@ export class HomePage {
       'user_rec': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'distri': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
 
-      'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
-      //'barra': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      //'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'barra': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'n_parte': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'modelo': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
       'serie': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
