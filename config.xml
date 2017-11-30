@@ -92,4 +92,8 @@
         <variable name="FCM_VERSION" value="11.0.1" />
     </plugin>
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-camera" spec="^3.0.0">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="the app need the camera" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="the app need the photolibrary" />
+    </plugin>
 </widget>

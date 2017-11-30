@@ -31,7 +31,8 @@ import {ConfigPage} from "../pages/config/config";
 import {MensajesPage} from "../pages/mensajes/mensajes";
 import {UserService} from "../util/services/user.service";
 import {Push} from "@ionic-native/push";
-
+import { Camera } from '@ionic-native/camera';
+import {ModalGooglePlacesPage} from "../pages/modal-google-places/modal-google-places";
 @NgModule({
   declarations: [
     MyApp,
@@ -49,6 +50,7 @@ import {Push} from "@ionic-native/push";
     ModalClientPage,
     ModalAccionOrderPage,
     ModalOrderCountPage,
+    ModalGooglePlacesPage,
     ConfigPage,
     MensajesPage
   ],
@@ -70,6 +72,7 @@ import {Push} from "@ionic-native/push";
     TabOrderPage,
     ModalOrderPage,
     ModalClientPage,
+    ModalGooglePlacesPage,
     ModalAccionOrderPage,
     ModalOrderCountPage,
     ConfigPage,
@@ -79,6 +82,7 @@ import {Push} from "@ionic-native/push";
     StatusBar,
     SplashScreen,
     Push,
+    Camera,
     BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpService,

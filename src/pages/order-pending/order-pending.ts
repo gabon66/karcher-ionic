@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {NavController, NavParams, LoadingController, ModalController, AlertController, Events} from 'ionic-angular';
+import {
+  NavController, NavParams, LoadingController, ModalController, AlertController, Events,
+  ViewController
+} from 'ionic-angular';
 import {OrderService} from "../../util/services/order.service";
 import {FormBuilder} from "@angular/forms";
 import {ModalOrderPage} from "../modal-order/modal-order";
@@ -33,6 +36,7 @@ export class OrderPendingPage {
               private events: Events,
               public loadingCtrl: LoadingController,
               public modalCtrl: ModalController,
+              private viewCtrl: ViewController,
               private alertController: AlertController,
               public orderService:OrderService,
               private fb:FormBuilder) {
@@ -41,6 +45,10 @@ export class OrderPendingPage {
 
   ionViewDidEnter(){
     this.getOrders();
+  }
+
+  ionViewWillEnter() {
+    this.viewCtrl.showBackButton(false);
   }
 
   openCountPage(){

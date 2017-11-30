@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {HttpService} from "./http.service";
 import {environment} from "../../environment/environment";
 import {Http, Headers, RequestOptions, Response, URLSearchParams} from '@angular/http';
-import {Observable} from "rxjs";
+import { Observable } from 'rxjs/Observable'
 /**
  * Created by gabo on 01/08/17.
  */
@@ -40,6 +40,16 @@ export class OrderService {
 
   updateOrder(id , dataPost:any){
     let url = environment.api.baseUrlApi+"movil/order/"+id;
+    return this.http.put(url,dataPost)
+      .map((response: Response) => response.json())
+      .catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+
+  updateOrderObs(id , dataPost:any){
+    let url = environment.api.baseUrlApi+"movil/order/obs/"+id;
     return this.http.put(url,dataPost)
       .map((response: Response) => response.json())
       .catch((err: Response) => {

@@ -30,7 +30,7 @@ export class MenuPage {
       { title: 'Nueva Orden', component: HomePage },
       { title: 'Control de Ordenes', component: TabOrderPage },
       { title: 'Bandeja de Entrada', component: MensajesPage },
-      { title: 'Configuracíon', component: ConfigPage }
+      { title: 'Configuración', component: ConfigPage }
     ];
   }
 

@@ -5,6 +5,9 @@ import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {BarcodeScanner} from "@ionic-native/barcode-scanner";
 import {ModalClientPage} from "../modal-client/modal-client";
 import {URLSearchParams} from "@angular/http";
+import {ModalOrderPage} from "../modal-order/modal-order";
+import {OrderPendingPage} from "../order-pending/order-pending";
+import {ModalGooglePlacesPage} from "../modal-google-places/modal-google-places";
 
 @Component({
   selector: 'page-home',
@@ -17,6 +20,7 @@ export class HomePage {
   msgerror='';
 
   loaderMsg:any;
+  address;
 
   ordNumer:any;
   distId:any;
@@ -32,6 +36,7 @@ export class HomePage {
   ordertec:any;
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
+
               private barcodeScanner: BarcodeScanner,
               public loadingCtrl: LoadingController,
               private alertController: AlertController,
@@ -43,8 +48,8 @@ export class HomePage {
       'user_rec': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'distri': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
 
-      //'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'barra': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'barra': ['16672290010427', Validators.compose([Validators.required, Validators.minLength(4)])],
+      //'barra': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'n_parte': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'modelo': ['', Validators.compose([Validators.required, Validators.minLength(1)])],
       'serie': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -52,8 +57,9 @@ export class HomePage {
       'cliente': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       'contacto': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       'telefono': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 
+      'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'dir': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
 
       'acc1': [''],
       'acc2': [''],
@@ -71,6 +77,7 @@ export class HomePage {
     });
 
     this.form.controls.user_rec.disable();
+    this.form.controls.dir.disable();
     this.form.controls.distri.disable();
     this.form.controls.date.disable();
     this.form.controls.n_parte.disable();
@@ -80,6 +87,9 @@ export class HomePage {
 
     this.getNewOrder();
 
+    this.address = {
+      place: ''
+    };
   }
 
   ionViewDidLoad() {
@@ -96,6 +106,7 @@ export class HomePage {
 
 
   barCode(){
+
     this.barcodeScanner.scan().then((barcodeData) => {
       // Success! Barcode data is here
       let serial_tmp:any=barcodeData;
@@ -121,6 +132,7 @@ export class HomePage {
   }
 
   checkBarraCode(){
+
     let current_bar= this.form.controls.barra.value;
 
 
@@ -246,6 +258,17 @@ export class HomePage {
     })
   }
 
+  openGooglePlaces(){
+    let modal = this.modalCtrl.create(ModalGooglePlacesPage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.address.place = data;
+      this.form.controls.dir.setValue(data);
+      console.log(data);
+    });
+    modal.present();
+  }
+
   onSubmit(formData){
     console.log(formData);
 
@@ -260,13 +283,18 @@ export class HomePage {
     data.append('cuno', formData.cliente);
     data.append('eml', formData.email);
     data.append('phn',  formData.telefono);
+    data.append('phncar',  formData.telefonocar);
+
     data.append('nme', formData.contacto);
+    data.append('dir', formData.dir);
+
 
 
     data.append('client_id', this.client_id);
     data.append('tecnico', formData.tecnico_assign);
     data.append('estado',  formData.state);
     data.append('obs', formData.obs);
+
 
     data.append('barra', formData.barra);
     data.append('serial', formData.serie);
@@ -287,6 +315,12 @@ export class HomePage {
     data.append('prd', formData.prior);
 
     this.orderService.saveOrder(data).subscribe(data=>{
+
+      console.log(data);
+
+      //let modal = this.modalCtrl.create(ModalOrderPage,data);
+      //modal.present();
+
       this.form.reset();
       this.step=1;
       this.getNewOrder();
@@ -297,6 +331,10 @@ export class HomePage {
       });
       alert.present();
 
+      this.navCtrl.push(OrderPendingPage).then(() => {
+        const startIndex = this.navCtrl.getActive().index - 1;
+        this.navCtrl.remove(startIndex, 1);
+      });
     },error=>{
       console.log(error);
     })

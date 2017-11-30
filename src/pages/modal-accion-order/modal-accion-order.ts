@@ -51,6 +51,21 @@ export class ModalAccionOrderPage {
 
   saveObs(){
 
+    let data = new URLSearchParams();
+    this.order.obs=this.obs;
+    data.append('obs',  this.order.obs);
+
+    this.orderService.updateOrderObs(this.order.id,data ).subscribe(data=>{
+
+      let alert = this.alertController.create({
+        title: 'Orden',
+        subTitle: 'Actualizada con éxito',
+        buttons: ['Aceptar']
+      });
+      //this.nav.push(LoginPage);
+      alert.present();
+      this.viewCtrl.dismiss();
+    })
   }
 
   autoAsign(){

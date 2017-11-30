@@ -9,9 +9,8 @@
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" [hidden]="!userValid">
-
-    <ion-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" [hidden]="!userValid" #documentEditForm="ngForm">
+    <ion-card style="height: 90%;overflow: auto" >
       <ion-card-content [hidden]="step!=1">
         <ion-row>
           <ion-col>
@@ -62,7 +61,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-                <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="barCode()" >Escanear</button>
+                <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="checkBarraCode()" >Escanear</button>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -137,7 +136,7 @@
           <ion-col>
             <ion-item>
               <ion-label color="primary" class="label-form" stacked>Teléfono:</ion-label>
-              <ion-input type="text" formControlName="telefono"   placeholder=""></ion-input>
+              <ion-input type="text" formControlName="telefono"   placeholder="011-54546555"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -151,6 +150,26 @@
             </ion-item>
           </ion-col>
         </ion-row>
+
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label color="primary" class="label-form" stacked>Dirección:</ion-label>
+              <ion-input type="text" formControlName="dir"   placeholder=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="openGooglePlaces()" >Cargar Dirección</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
       </ion-card-content>
 
       <ion-card-content [hidden]="step!=4">
@@ -291,26 +310,22 @@
         </ion-row>
       </ion-card-content>
 
-
     </ion-card>
 
 
   <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
 
-
-
-  <ion-footer style="text-align: center" >
-    <ion-row >
-      <ion-col col-6>
-        <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="back()" >Atras</button>
-      </ion-col>
-      <ion-col col-6>
-        <button ion-button  class="btn-karcher" [hidden]="step>4" style="width: 100%" type="button" (click)="next()"   outline >Siguiente</button>
-        <button ion-button   class="btn-karcher" [hidden]="step!=5" [disabled]="!form.valid" style="width: 100%" type="submit"   outline >Guardar</button>
-      </ion-col>
-    </ion-row>
-
-  </ion-footer>
 </form>
 </ion-content>
 
+<ion-footer style="text-align: center;background-color: white" >
+  <ion-row >
+    <ion-col col-6>
+      <button ion-button class="btn-karcher" [hidden]="step<2"  style="width: 100%" type="button" (click)="back()" >Atras</button>
+    </ion-col>
+    <ion-col col-6>
+      <button ion-button  class="btn-karcher" [hidden]="step>4" style="width: 100%" type="button" (click)="next()"   outline >Siguiente</button>
+      <button ion-button   class="btn-karcher" (click)="documentEditForm.ngSubmit.emit()"  [hidden]="step!=5" [disabled]="!form.valid" style="width: 100%" type="button"   outline >Guardar</button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
